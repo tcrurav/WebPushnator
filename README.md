@@ -54,8 +54,9 @@ PRIVATE_KEY=<your-vapid-private-key>
 Create a .env in your frontend folder with your own data:
 
 ```
-REACT_APP_API_URL=http://localhost:8080/api/subscriptions
-REACT_APP_PUBLIC_KEY=<your-vapid-public-key>
+VITE_API_URL=http://localhost:8080/api/subscriptions
+VITE_PUBLIC_KEY=<your-vapid-public-key>
+VITE_PUBLIC_URL=
 ```
 
 Finally run both your backend and frontend:
@@ -65,7 +66,7 @@ cd WebPushnator/frontend
 npm start
 
 cd WebPushnator/backend
-npm start
+npm run dev
 ```
 
 To test this project the best is to open 3 diferent browsers and start sending notifications.

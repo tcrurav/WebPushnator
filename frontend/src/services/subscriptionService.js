@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// const API = "http://localhost:8080/api/subscriptions";
-const API = process.env.REACT_APP_API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 function unregisterAllServiceWorkers() {
   navigator.serviceWorker.getRegistrations().then(function (registrations) {
@@ -13,7 +12,7 @@ function unregisterAllServiceWorkers() {
 
 async function regSw() {
   if ('serviceWorker' in navigator) {
-    let url = process.env.PUBLIC_URL + '/sw.js';
+    let url = import.meta.env.VITE_PUBLIC_URL + '/sw.js';
     const reg = await navigator.serviceWorker.register(url, { scope: '/' });
     return reg;
   }
@@ -25,9 +24,7 @@ async function subscribe(serviceWorkerReg, subscriptionName) {
   if (subscription === null) {
     subscription = await serviceWorkerReg.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: process.env.REACT_APP_PUBLIC_KEY
-      //applicationServerKey: 'BOP1vbXrhHeb_sbD-2GieGRqd82oqmRg05w1t9WMz-Fk3Myi3FqmgsgsrvuRyI6r-owsIPLsK9JS-temIlRfHQc',
-      // TODO: Public VAPID key should only be in .env
+      applicationServerKey: import.meta.env.VITE_PUBLIC_KEY
     });
     axios.post(`${API}/subscribe`, { subscriptionName: subscriptionName, subscription: subscription });
   }
